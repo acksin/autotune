@@ -9,13 +9,11 @@
 package main
 
 import (
-	"flag"
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 
-	"github.com/acksin/strum/stats"
+	"github.com/mitchellh/cli"
 )
 
 var (
@@ -29,54 +27,23 @@ https://acksin.com/strum
 `, version)
 }
 
-// Currently available output types.
-const (
-	JSONOutput   = "json"
-	FlatOutput   = "flat"
-	AcksinOutput = "cloud"
-)
-
-type config struct {
-	apiKey    string
-	sessionID string
-
-	stats *stats.Stats
-}
-
 func main() {
-	conf := config{}
+	c := cli.NewCLI("strum", version)
+	c.Args = os.Args[1:]
 
-	cloudOut := flag.Bool("cloud", false, "Send to STRUM Cloud.")
-	jsonOut := flag.Bool("json", true, "Formatted output as JSON.")
-	flatOut := flag.Bool("flat", false, "Formatted output as flat key value.")
-	flag.StringVar(&conf.apiKey, "api-key", os.Getenv("ACKSIN_API_KEY"), "API Key for Acksin. https://www.acksin.com/console/credentials")
-
-	flag.Usage = func() {
-		fmt.Fprintln(os.Stderr, "strum [flags] [pid]")
-		fmt.Fprintln(os.Stderr, "")
-		flag.PrintDefaults()
-		fmt.Fprintf(os.Stderr, "\n%s", copyright())
-	}
-	flag.Parse()
-
-	var pids []int
-	for _, pid := range flag.Args() {
-		i, err := strconv.Atoi(pid)
-		if err != nil {
-			log.Fatalf("failed to parse %s", pid)
-		}
-
-		pids = append(pids, i)
+	c.Commands = map[string]cli.CommandFactory{
+		"agent": func() (cli.Command, error) {
+			return &agent{}, nil
+		},
+		"output": func() (cli.Command, error) {
+			return &output{}, nil
+		},
 	}
 
-	conf.stats = stats.New(pids)
-
-	switch {
-	case *cloudOut:
-		postToAcksin(&conf)
-	case *flatOut:
-		fmt.Printf("%s", conf.stats.Flat())
-	case *jsonOut:
-		fmt.Printf("%s", conf.stats.JSON())
+	exitStatus, err := c.Run()
+	if err != nil {
+		log.Println(err)
 	}
+
+	os.Exit(exitStatus)
 }

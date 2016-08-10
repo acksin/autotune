@@ -1,0 +1,5 @@
+{
+    "APIKey": "",
+    "URL": "https://api.acksin.com/v1/strum/stats",
+    "Debug": false
+}

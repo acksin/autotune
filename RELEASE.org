@@ -1,5 +1,10 @@
 #+TITLE: Release Notes
 
+* 0.5.x
+
+ - New CLI to allow collecting agent.
+ - Tuning recommendations on the Console.
+
 * 0.4.2
 
  - Release now includes information in Github Releases

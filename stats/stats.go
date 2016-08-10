@@ -13,13 +13,13 @@ import (
 
 	"github.com/acksin/procfs"
 
-	"github.com/acksin/strum/cloud"
-	"github.com/acksin/strum/container"
-	"github.com/acksin/strum/disk"
-	"github.com/acksin/strum/io"
-	"github.com/acksin/strum/kernel"
-	"github.com/acksin/strum/memory"
-	"github.com/acksin/strum/network"
+	"github.com/acksin/strum/stats/cloud"
+	"github.com/acksin/strum/stats/container"
+	"github.com/acksin/strum/stats/disk"
+	"github.com/acksin/strum/stats/io"
+	"github.com/acksin/strum/stats/kernel"
+	"github.com/acksin/strum/stats/memory"
+	"github.com/acksin/strum/stats/network"
 )
 
 // Stats contains both the system and process statistics.

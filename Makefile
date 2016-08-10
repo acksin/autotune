@@ -39,14 +39,14 @@ release: website-assets lambda-build build archive
 	s3cmd put --acl-public $(PRODUCT)-$(VERSION).tar.gz s3://assets.acksin.com/$(PRODUCT)/${VERSION}/$(PRODUCT)-$(shell uname)-$(shell uname -i)-${VERSION}.tar.gz
 
 website-assets:
-	emacs docs.org --batch --eval '(org-html-export-to-html nil nil nil t)'  --kill
+	emacs DOCS.org --batch --eval '(org-html-export-to-html nil nil nil t)'  --kill
 	echo "---" > docs.html.erb
 	echo "title: STRUM Docs" >> docs.html.erb
 	echo "layout: docs" >> docs.html.erb
 	echo "description: Documentation for STRUM. Tool to diagnoses Linux augmented with Machine Learning" >> docs.html.erb
 	echo "---" >> docs.html.erb
-	cat docs.html >> docs.html.erb
-	rm docs.html
+	cat DOCS.html >> docs.html.erb
+	rm DOCS.html
 	-cp docs.html.erb $$GOPATH/src/github.com/acksin/fugue/acksin.com/source/strum/
 
 lambda-build:

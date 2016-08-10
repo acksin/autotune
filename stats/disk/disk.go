@@ -13,7 +13,7 @@ import (
 	"log"
 
 	"github.com/acksin/go-fstab"
-	"github.com/acksin/strum/mvp"
+	"github.com/acksin/strum/stats/mvp"
 )
 
 // Disk returns information about the block drives on the machine.

@@ -23,13 +23,7 @@ that is left out because of a lack of permissions. As such it is
 better to run the tool as =sudo=.
 
 #+begin_src sh
-sudo strum
-#+end_src
-
-If you just want info on a single PID run the following:
-
-#+begin_src sh
-sudo strum [pid]
+sudo strum output
 #+end_src
 
 * Introduction
@@ -102,25 +96,19 @@ syntax.
 ** Getting Help
 
 #+begin_src sh :results output example :exports both
-./strum -help
+strum --help
 #+end_src
 
 ** Basic Usage
 
 #+begin_src sh :results output code json :exports both :noweb
-./strum
-#+end_src
-
-** Information on a Process
-
-#+begin_src sh :results output code json :exports both :noweb
-./strum 1505
+strum
 #+end_src
 
 ** Alternate Outputs
 
 #+begin_src sh :results output code json :exports both :noweb
-./strum -flat
+strum output flat
 #+end_src
 
 ** STRUM Cloud
@@ -148,7 +136,7 @@ The output of STRUM therefore has the following output:
 The output of the =.System= section looks like the following:
 
 #+begin_src sh :results output code :exports both :noweb
-strum | jq '.System'
+strum output | jq '.System'
 #+end_src
 
 #+RESULTS:
@@ -239,7 +227,7 @@ strum | jq '.System'
 *** Memory
 
 #+begin_src sh :results output code :exports both :noweb
-strum | jq '.System.Memory'
+strum output | jq '.System.Memory'
 #+end_src
 
 #+RESULTS:
@@ -279,7 +267,7 @@ lead to high CPU usage and poor performance.
 *** Disk
 
 #+begin_src sh :results output code :exports both :noweb
-strum | jq '.System.Disk'
+strum output | jq '.System.Disk'
 #+end_src
 
 #+RESULTS:
@@ -430,7 +418,7 @@ output. The key is the full path to the change. On the Linux kernel
 that is in =/proc/sys/=.
 
 #+begin_src sh :results output code :exports both :noweb
-strum | jq '.System.Kernel'
+strum output | jq '.System.Kernel'
 #+end_src
 
 #+RESULTS:
@@ -456,7 +444,7 @@ diagnostic information that can be immediately useful.
 *** Docker
 
 #+begin_src sh :results output code :exports both :noweb
-strum | jq '.Container.Docker'
+strum output | jq '.Container.Docker'
 #+end_src
 
 #+RESULTS:
@@ -532,7 +520,7 @@ machine for the tasks of the application.
 The key =.Cloud.AWS= provides the following output.
 
 #+begin_src sh :results output code :exports both :noweb
-strum | jq '.Cloud.AWS'
+strum output | jq '.Cloud.AWS'
 #+end_src
 
 #+RESULTS:
@@ -559,7 +547,7 @@ strum | jq '.Cloud.AWS'
 *** DigitalOcean
 
 #+begin_src sh :results output code :exports both :noweb
-strum | jq '.Cloud.DigitalOcean'
+strum output | jq '.Cloud.DigitalOcean'
 #+end_src
 
 #+RESULTS:
@@ -608,43 +596,27 @@ strum | jq '.Cloud.DigitalOcean'
 Here we want to get information about the process with the =PID= 2277.
 
 #+begin_src sh :results output code :exports both :noweb
-strum 2277 | jq '.Processes[0]'
+strum output | jq '.Processes[0]'
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC sh
 {
-  "Exe": "/lib/systemd/systemd",
-  "PID": 2277,
+  "Exe": "systemd",
+  "PID": 1,
   "Memory": {
     "Swap": {
-      "Size": 0,
+      "Size": 344,
       "Unit": "kb"
     }
   },
   "IO": {
     "Limits": {
-      "OpenFiles": 1024,
-      "FileSize": 0,
+      "OpenFiles": 65536,
+      "FileSize": -1,
       "CPUTime": -1
     },
-    "FD": {
-      "0": "/dev/null",
-      "1": "socket:[21619]",
-      "10": "/proc/2277/mountinfo",
-      "11": "anon_inode:inotify",
-      "12": "/proc/swaps",
-      "13": "socket:[21669]",
-      "14": "socket:[21670]",
-      "2": "socket:[21619]",
-      "3": "socket:[21635]",
-      "4": "anon_inode:[eventpoll]",
-      "5": "anon_inode:[signalfd]",
-      "6": "/sys/fs/cgroup/systemd/user/abhi/2",
-      "7": "anon_inode:[timerfd]",
-      "8": "socket:[21650]",
-      "9": "anon_inode:[eventpoll]"
-    }
+    "FD": null
   }
 }
 #+END_SRC
@@ -654,14 +626,14 @@ strum 2277 | jq '.Processes[0]'
 We can see the memory usage for the process.
 
 #+begin_src sh :results output code :exports both :noweb
-strum 2277 | jq '.Processes[0].Memory'
+strum output | jq '.Processes[0].Memory'
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC sh
 {
   "Swap": {
-    "Size": 0,
+    "Size": 344,
     "Unit": "kb"
   }
 }
@@ -682,34 +654,18 @@ We can get information about the IO of a process. We can see what
 files it has open as well as the limits that it has.
 
 #+begin_src sh :results output code :exports both :noweb
-strum 2277 | jq '.Processes[0].IO'
+strum output | jq '.Processes[0].IO'
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC sh
 {
   "Limits": {
-    "OpenFiles": 1024,
-    "FileSize": 0,
+    "OpenFiles": 65536,
+    "FileSize": -1,
     "CPUTime": -1
   },
-  "FD": {
-    "0": "/dev/null",
-    "1": "socket:[21619]",
-    "10": "/proc/2277/mountinfo",
-    "11": "anon_inode:inotify",
-    "12": "/proc/swaps",
-    "13": "socket:[21669]",
-    "14": "socket:[21670]",
-    "2": "socket:[21619]",
-    "3": "socket:[21635]",
-    "4": "anon_inode:[eventpoll]",
-    "5": "anon_inode:[signalfd]",
-    "6": "/sys/fs/cgroup/systemd/user/abhi/2",
-    "7": "anon_inode:[timerfd]",
-    "8": "socket:[21650]",
-    "9": "anon_inode:[eventpoll]"
-  }
+  "FD": null
 }
 #+END_SRC
 
@@ -718,14 +674,14 @@ strum 2277 | jq '.Processes[0].IO'
 We can see here what the kernel limits are for the process.
 
 #+begin_src sh :results output code :exports both :noweb
-strum 2277 | jq '.Processes[0].IO.Limits'
+strum output | jq '.Processes[0].IO.Limits'
 #+end_src
 
 #+RESULTS:
 #+BEGIN_SRC sh
 {
-  "OpenFiles": 1024,
-  "FileSize": 0,
+  "OpenFiles": 65536,
+  "FileSize": -1,
   "CPUTime": -1
 }
 #+END_SRC
