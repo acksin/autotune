@@ -31,6 +31,7 @@ defaults:
 functions:
     mentalmodels:
         handler: handler.handler
+        memorySize: 128
 
 #       you can add any of the following events
 #       events:

@@ -12,10 +12,10 @@ from memory import Memory
 from networking import Networking
 
 class Strum(object):
-    def __init__(self, id):
+    def __init__(self, config_file, id):
         self.ID = id
 
-        self.config = json.load(open('config.json', 'r'))
+        self.config = json.load(open(config_file, 'r'))
         self.conn = psycopg2.connect(self.config['database'])
 
         cur = self.conn.cursor()
@@ -49,7 +49,11 @@ def handler(event, context):
     Run on AWS Lambda.
     """
 
-    strum = Strum(event['ID'])
+    config_file = "config.dev.json"
+    if context.function_name == "strum-prod-mentalmodels":
+        config_file = "config.prod.json"
+
+    strum = Strum(config_file, event['ID'])
 
     memory = Memory(strum)
     networking = Networking(strum)

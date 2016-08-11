@@ -6,6 +6,11 @@ How to do a release:
  - Update [[https://github.com/acksin/strum/releases][Github Release]] Notes
  - Release [[https://www.acksin.com][acksin.com]]
 
+* 0.5.x
+
+ - Deploy both dev and prod stages for mental models.
+ - Console now should human readable times using moment.js
+
 * 0.5.0
 
  - systemd Unit File for deploying as a daemon.

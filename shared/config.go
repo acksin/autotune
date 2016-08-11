@@ -8,7 +8,35 @@
 
 package shared
 
+import (
+	"encoding/json"
+	"errors"
+	"io/ioutil"
+)
+
+// Config is the configuration used by the STRUM Agent.
 type Config struct {
 	APIKey string
 	URL    string
+}
+
+// ParseConfig reads and validates a configuration file.
+func ParseConfig(configFile string) (c *Config, err error) {
+	c = &Config{}
+
+	b, err := ioutil.ReadFile(configFile)
+	if err != nil {
+		return nil, err
+	}
+
+	err = json.Unmarshal(b, c)
+	if err != nil {
+		return nil, err
+	}
+
+	if c.APIKey == "" {
+		return nil, errors.New("Set the `APIKey`. For STRUM Cloud this can be found at https://www.acksin.com/console/credentials")
+	}
+
+	return c, nil
 }

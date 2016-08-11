@@ -38,7 +38,7 @@ var AcksinStrumDashboard  = React.createClass({
           <tr key={result[i].ID}>
             <td><a href={"/console/autotune/#/" + result[i].ID}>{result[i].InstanceID}</a></td>
             <td>{result[i].InstanceType}</td>
-            <td>{result[i].CreatedAt}</td>
+            <td>{moment(result[i].CreatedAt).calendar()}</td>
             <td><a href={"/console/strum/#/" + result[i].ID}><i className="fa fa-cogs" aria-hidden="true"></i></a></td>
           </tr>
         );
