@@ -386,7 +386,7 @@ class NamedTupleCursorTest(ConnectingTestCase):
 
     @skip_if_no_namedtuple
     def test_minimal_generation(self):
-        # Instrument the class to verify it gets called the minimum number of times.
+        # Inautotuneent the class to verify it gets called the minimum number of times.
         from psycopg2.extras import NamedTupleCursor
         f_orig = NamedTupleCursor._make_nt
         calls = [0]

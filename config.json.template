@@ -1,5 +1,5 @@
 {
     "APIKey": "",
-    "URL": "https://api.acksin.com/v1/strum/stats",
+    "URL": "https://api.acksin.com/v1/autotune/stats",
     "Debug": false
 }

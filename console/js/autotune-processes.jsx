@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-var AcksinStrumProcesses  = React.createClass({
+var AcksinAutotuneProcesses  = React.createClass({
   getInitialState: function() {
     var c = [];
 
@@ -17,7 +17,7 @@ var AcksinStrumProcesses  = React.createClass({
         <tr key={"proc" + i}>
           <td>{proc.Exe}</td>
           <td>
-            <AcksinStrumTable property={proc.IO.FD} />
+            <AcksinAutotuneTable property={proc.IO.FD} />
           </td>
         </tr>
       );

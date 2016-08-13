@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -21,14 +21,14 @@ var (
 )
 
 func copyright() string {
-	return fmt.Sprintf(`Acksin STRUM %s.
+	return fmt.Sprintf(`Acksin Autotune %s.
 Copyright (c) 2016. Acksin.
-https://acksin.com/strum
+https://acksin.com/autotune
 `, version)
 }
 
 func main() {
-	c := cli.NewCLI("strum", version)
+	c := cli.NewCLI("autotune", version)
 	c.Args = os.Args[1:]
 
 	c.Commands = map[string]cli.CommandFactory{

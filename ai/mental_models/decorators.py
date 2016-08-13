@@ -21,7 +21,7 @@ def procfs_feature(func):
 
         returned = {}
         for k, v in output.items():
-            if not self.strum.stats['System']['Kernel'][k] == v:
+            if not self.autotune.stats['System']['Kernel'][k] == v:
                 returned = dict(returned.items() + output.items())
 
         return returned

@@ -11,7 +11,7 @@
 #
 # Happy Coding!
 
-service: strum
+service: autotune
 provider: aws
 runtime: python2.7
 

@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -14,7 +14,7 @@ import (
 	"io/ioutil"
 )
 
-// Config is the configuration used by the STRUM Agent.
+// Config is the configuration used by the Autotune Agent.
 type Config struct {
 	APIKey string
 	URL    string
@@ -35,7 +35,7 @@ func ParseConfig(configFile string) (c *Config, err error) {
 	}
 
 	if c.APIKey == "" {
-		return nil, errors.New("Set the `APIKey`. For STRUM Cloud this can be found at https://www.acksin.com/console/credentials")
+		return nil, errors.New("Set the `APIKey`. For Autotune Cloud this can be found at https://www.acksin.com/console/credentials")
 	}
 
 	return c, nil

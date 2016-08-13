@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-var AcksinStrumContainer  = React.createClass({
+var AcksinAutotuneContainer  = React.createClass({
   getInitialState: function() {
     return null;
   },
@@ -15,13 +15,13 @@ var AcksinStrumContainer  = React.createClass({
       <div>
         <h2>Container</h2>
 
-        <AcksinStrumContainerDocker docker={this.props.container.Docker} />
+        <AcksinAutotuneContainerDocker docker={this.props.container.Docker} />
       </div>
     );
   }
 });
 
-var AcksinStrumContainerDocker  = React.createClass({
+var AcksinAutotuneContainerDocker  = React.createClass({
   getInitialState: function() {
     var containersTable = [];
     var imagesTable = [];

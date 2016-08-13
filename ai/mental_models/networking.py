@@ -19,8 +19,8 @@ class Networking(mental_model.MentalModel):
     https://access.redhat.com/sites/default/files/attachments/20150325_network_performance_tuning.pdf
     """
 
-    def __init__(self, strum):
-        self.strum = strum
+    def __init__(self, autotune):
+        self.autotune = autotune
 
         self.vars = {
             'nfConntrackMax': 200000

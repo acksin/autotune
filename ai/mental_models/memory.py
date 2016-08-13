@@ -8,10 +8,10 @@ from decorators import *
 import mental_model
 
 class Memory(mental_model.MentalModel):
-    def __init__(self, strum):
-        self.strum = strum
-        self.memory = self.strum.stats['System']['Memory']
-        self.kernel = self.strum.stats['System']['Kernel']
+    def __init__(self, autotune):
+        self.autotune = autotune
+        self.memory = self.autotune.stats['System']['Memory']
+        self.kernel = self.autotune.stats['System']['Kernel']
 
     @ai_feature
     def is_swapping(self):

@@ -1,4 +1,4 @@
-#+TITLE: Acksin STRUM
+#+TITLE: Autotune
 #+AUTHOR: Acksin
 #+OPTIONS: html-postamble:nil body-only: t
 
@@ -11,11 +11,6 @@ and the nonmoving.
 -- Bhagavad Gita
 #+end_quote
 
-#+begin_html
-<a href="https://travis-ci.org/acksin/strum"><img src="https://travis-ci.org/acksin/strum.svg?branch=master" /></a>
-<a href="https://godoc.org/github.com/acksin/strum"><img src="https://godoc.org/github.com/acksin/strum?status.svg" alt="GoDoc"></a>
-#+end_html
-
 * tl;dr
 
 While the tool can be used without =sudo= there may be information
@@ -23,14 +18,14 @@ that is left out because of a lack of permissions. As such it is
 better to run the tool as =sudo=.
 
 #+begin_src sh
-sudo strum output
+sudo autotune output
 #+end_src
 
 * Introduction
 
-Acksin STRUM is the tool to diagnose Linux issues quickly. It gives
+Acksin Autotune is the tool to diagnose Linux issues quickly. It gives
 you a complete picture of the CPU, Memory, IO, Networking, Processes,
-Kernel Limits, etc. of a system. STRUM was born out of the frustration
+Kernel Limits, etc. of a system. Autotune was born out of the frustration
 that diagnosing an issue was to go through a mental checklist and
 dealing with fallible human memory (especially at 3am when the pager
 goes off). We hope that this tool will help.
@@ -47,7 +42,7 @@ If a MySQL machine is high CPU your workflow may be running =top= to
 see what the CPUs are like, =free= to see if the machine is swapping,
 =ss= to see if there are a lot of connections, etc.
 
-STRUM will give you a birds eye view of the system and a process
+Autotune will give you a birds eye view of the system and a process
 quickly.
 
 * Basic Usage
@@ -96,31 +91,31 @@ syntax.
 ** Getting Help
 
 #+begin_src sh :results output example :exports both
-strum --help
+autotune --help
 #+end_src
 
 ** Basic Usage
 
 #+begin_src sh :results output code json :exports both :noweb
-strum
+autotune
 #+end_src
 
 ** Alternate Outputs
 
 #+begin_src sh :results output code json :exports both :noweb
-strum output flat
+autotune output flat
 #+end_src
 
-** STRUM Cloud
+** Autotune Cloud
 
-STRUM Cloud is a web interface to look at the details of your machines
+Autotune Cloud is a web interface to look at the details of your machines
 data.
 
 * Diagnostics
 
-Acksin STRUM is a tool for diagnosing issues quickly. It deals with
+Acksin Autotune is a tool for diagnosing issues quickly. It deals with
 things at the system level, the cloud level, and at the process level.
-The output of STRUM therefore has the following output:
+The output of Autotune therefore has the following output:
 
 #+begin_src json
   {
@@ -136,7 +131,7 @@ The output of STRUM therefore has the following output:
 The output of the =.System= section looks like the following:
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.System'
+autotune output | jq '.System'
 #+end_src
 
 #+RESULTS:
@@ -227,7 +222,7 @@ strum output | jq '.System'
 *** Memory
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.System.Memory'
+autotune output | jq '.System.Memory'
 #+end_src
 
 #+RESULTS:
@@ -267,7 +262,7 @@ lead to high CPU usage and poor performance.
 *** Disk
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.System.Disk'
+autotune output | jq '.System.Disk'
 #+end_src
 
 #+RESULTS:
@@ -418,7 +413,7 @@ output. The key is the full path to the change. On the Linux kernel
 that is in =/proc/sys/=.
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.System.Kernel'
+autotune output | jq '.System.Kernel'
 #+end_src
 
 #+RESULTS:
@@ -444,7 +439,7 @@ diagnostic information that can be immediately useful.
 *** Docker
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.Container.Docker'
+autotune output | jq '.Container.Docker'
 #+end_src
 
 #+RESULTS:
@@ -520,7 +515,7 @@ machine for the tasks of the application.
 The key =.Cloud.AWS= provides the following output.
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.Cloud.AWS'
+autotune output | jq '.Cloud.AWS'
 #+end_src
 
 #+RESULTS:
@@ -547,7 +542,7 @@ strum output | jq '.Cloud.AWS'
 *** DigitalOcean
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.Cloud.DigitalOcean'
+autotune output | jq '.Cloud.DigitalOcean'
 #+end_src
 
 #+RESULTS:
@@ -596,7 +591,7 @@ strum output | jq '.Cloud.DigitalOcean'
 Here we want to get information about the process with the =PID= 2277.
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.Processes[0]'
+autotune output | jq '.Processes[0]'
 #+end_src
 
 #+RESULTS:
@@ -626,7 +621,7 @@ strum output | jq '.Processes[0]'
 We can see the memory usage for the process.
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.Processes[0].Memory'
+autotune output | jq '.Processes[0].Memory'
 #+end_src
 
 #+RESULTS:
@@ -654,7 +649,7 @@ We can get information about the IO of a process. We can see what
 files it has open as well as the limits that it has.
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.Processes[0].IO'
+autotune output | jq '.Processes[0].IO'
 #+end_src
 
 #+RESULTS:
@@ -674,7 +669,7 @@ strum output | jq '.Processes[0].IO'
 We can see here what the kernel limits are for the process.
 
 #+begin_src sh :results output code :exports both :noweb
-strum output | jq '.Processes[0].IO.Limits'
+autotune output | jq '.Processes[0].IO.Limits'
 #+end_src
 
 #+RESULTS:

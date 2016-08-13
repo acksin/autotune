@@ -11,7 +11,7 @@ import sys
 from memory import Memory
 from networking import Networking
 
-class Strum(object):
+class Autotune(object):
     def __init__(self, config_file, id):
         self.ID = id
 
@@ -19,25 +19,25 @@ class Strum(object):
         self.conn = psycopg2.connect(self.config['database'])
 
         cur = self.conn.cursor()
-        cur.execute("SELECT data FROM strum_stats where id = %s", (id,))
+        cur.execute("SELECT data FROM autotune_stats where id = %s", (id,))
         self.stats = cur.fetchone()[0]
         cur.close()
 
     def write_ai_features(self, features):
         cur = self.conn.cursor()
-        cur.execute("UPDATE strum_stats SET ai_features = %s WHERE id = %s", (json.dumps(features), self.ID))
+        cur.execute("UPDATE autotune_stats SET ai_features = %s WHERE id = %s", (json.dumps(features), self.ID))
         cur.close()
         self.conn.commit()
 
     def write_procfs_features(self, features):
         cur = self.conn.cursor()
-        cur.execute("UPDATE strum_stats SET procfs_features = %s WHERE id = %s", (json.dumps(features), self.ID))
+        cur.execute("UPDATE autotune_stats SET procfs_features = %s WHERE id = %s", (json.dumps(features), self.ID))
         cur.close()
         self.conn.commit()
 
     def write_sysfs_features(self, features):
         cur = self.conn.cursor()
-        cur.execute("UPDATE strum_stats SET sysfs_features = %s WHERE id = %s", (json.dumps(features), self.ID))
+        cur.execute("UPDATE autotune_stats SET sysfs_features = %s WHERE id = %s", (json.dumps(features), self.ID))
         cur.close()
         self.conn.commit()
 
@@ -50,23 +50,23 @@ def handler(event, context):
     """
 
     config_file = "config.dev.json"
-    if context.function_name == "strum-prod-mentalmodels":
+    if context.function_name == "autotune-prod-mentalmodels":
         config_file = "config.prod.json"
 
-    strum = Strum(config_file, event['ID'])
+    autotune = Autotune(config_file, event['ID'])
 
-    memory = Memory(strum)
-    networking = Networking(strum)
+    memory = Memory(autotune)
+    networking = Networking(autotune)
 
     ai_features = dict(memory.ai_features().items() + networking.ai_features().items())
     procfs_features = dict(memory.procfs_features().items() + networking.procfs_features().items())
     sysfs_features = dict(memory.sysfs_features().items() + networking.sysfs_features().items())
 
-    strum.write_ai_features(ai_features)
-    strum.write_procfs_features(procfs_features)
-    strum.write_sysfs_features(sysfs_features)
+    autotune.write_ai_features(ai_features)
+    autotune.write_procfs_features(procfs_features)
+    autotune.write_sysfs_features(sysfs_features)
 
-    strum.close()
+    autotune.close()
 
     return {
         'Message': "OK"

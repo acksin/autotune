@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-var AcksinStrumTable = React.createClass({
+var AcksinAutotuneTable = React.createClass({
   render: function() {
     var property = this.props.property;
 
@@ -16,7 +16,7 @@ var AcksinStrumTable = React.createClass({
       for(var i in property) {
         its.push(
           <tr key={i}>
-            <td><AcksinStrumTable property={property[i]} /></td>
+            <td><AcksinAutotuneTable property={property[i]} /></td>
           </tr>
         );
       }
@@ -33,7 +33,7 @@ var AcksinStrumTable = React.createClass({
         its.push(
           <tr key={i}>
             <td><strong>{i}</strong></td>
-            <td><AcksinStrumTable property={property[i]} /></td>
+            <td><AcksinAutotuneTable property={property[i]} /></td>
           </tr>
         );
       }

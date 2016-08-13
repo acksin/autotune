@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,11 +16,11 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/acksin/strum/shared"
-	"github.com/acksin/strum/stats"
+	"github.com/acksin/autotune/shared"
+	"github.com/acksin/autotune/stats"
 )
 
-// Agent runs a STRUM Cloud agent.
+// Agent runs a Autotune Cloud agent.
 type agent struct {
 	Config *shared.Config
 
@@ -28,11 +28,11 @@ type agent struct {
 }
 
 func (a *agent) Synopsis() string {
-	return "Run a STRUM Cloud agent."
+	return "Run a Autotune Cloud agent."
 }
 
 func (a *agent) Help() string {
-	return "Run a STRUM Cloud agent."
+	return "Run a Autotune Cloud agent."
 }
 
 func (a *agent) post() error {
@@ -71,7 +71,7 @@ func (a *agent) post() error {
 func (a *agent) Run(args []string) int {
 	var err error
 
-	log.Println("Starting STRUM Agent...")
+	log.Println("Starting Autotune Agent...")
 
 	if len(args) == 0 {
 		log.Println("need to pass a config file")

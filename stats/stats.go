@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -13,13 +13,13 @@ import (
 
 	"github.com/acksin/procfs"
 
-	"github.com/acksin/strum/stats/cloud"
-	"github.com/acksin/strum/stats/container"
-	"github.com/acksin/strum/stats/disk"
-	"github.com/acksin/strum/stats/io"
-	"github.com/acksin/strum/stats/kernel"
-	"github.com/acksin/strum/stats/memory"
-	"github.com/acksin/strum/stats/network"
+	"github.com/acksin/autotune/stats/cloud"
+	"github.com/acksin/autotune/stats/container"
+	"github.com/acksin/autotune/stats/disk"
+	"github.com/acksin/autotune/stats/io"
+	"github.com/acksin/autotune/stats/kernel"
+	"github.com/acksin/autotune/stats/memory"
+	"github.com/acksin/autotune/stats/network"
 )
 
 // Stats contains both the system and process statistics.

@@ -22,9 +22,6 @@ _testmain.go
 *.exe
 *.test
 *.prof
-/ai/mental_models/memory.pyc
-/ai/mental_models/mental_model.pyc
-/ai/mental_models/networking.pyc
-/ai/mental_models/decorators.pyc
-/strum
+/ai/mental_models/*.pyc
+/autotune
 /docs.html.erb

@@ -1,45 +1,57 @@
-# STRUM
+![Autotune](https://assets.acksin.com/images/autotune.png)
 
-<a href="https://travis-ci.org/acksin/strum"><img src="https://travis-ci.org/acksin/strum.svg?branch=master" /></a>
-<a href="https://godoc.org/github.com/acksin/strum"><img src="https://godoc.org/github.com/acksin/strum?status.svg" alt="GoDoc"></a>
+# Autotune
+
+<a href="https://travis-ci.org/acksin/autotune"><img src="https://travis-ci.org/acksin/autotune.svg?branch=master" /></a>
+<a href="https://godoc.org/github.com/acksin/autotune"><img src="https://godoc.org/github.com/acksin/autotune?status.svg" alt="GoDoc"></a>
 
 ## Introduction
 
-STRUM is a Cloud and Container aware diagnostics that uses Machine
+Autotune is a Cloud and Container aware diagnostics that uses Machine
 Learning to help figure out issues with your infrastructure.
 
 ## Quick Start
 
-[Download STRUM](https://www.acksin.com/strum)
+[Download Autotune](https://www.acksin.com/autotune)
 
-STRUM outputs its data in JSON to the command line. Run the following
+Autotune outputs its data in JSON to the command line. Run the following
 command:
 
-    sudo strum output
+    sudo autotune output
 
-STRUM primarily runs as a daemon which regularily pushes diagnostics
-to a central server. Acksin runs
-[STRUM Cloud](https://www.acksin.com/console/login?redirectTo=https://www.acksin.com/console/strum)
-providing this capability.  Check out
-[config.json.template](config.json.template) for agent configuration.
+Autotune primarily runs as a daemon which regularily pushes
+diagnostics to a central server. Acksin runs
+[Autotune Cloud](https://www.acksin.com/console/login?redirectTo=https://www.acksin.com/console/autotune)
+providing this capability. You can get the configuration on the Acksin
+Console or you can check out
+[config.json.template](config.json.template) for agent
+configuration. We will open source the server side in the future.
 
-$un the following:
+Run the following:
 
-    sudo strum agent config.json
+    sudo autotune agent config.json
 
 ## Getting Started & Documentation
 
-All documentation is on the [STRUM website](https://www.acksin.com/strum).
+All documentation is on the [Autotune website](https://www.acksin.com/autotune).
 
-## Developing STRUM
+## Developing Autotune
 
-STRUM's command line portion is primarily written in Go whereas the
+Autotune's command line portion is primarily written in Go whereas the
 Machine Learning is written in Python. We will go over how to code for
 each part.
 
+The code is split into a couple different sections:
+
+ - [CLI Tool](stats): Collects stats from the System and Containers.
+ - [Mental Models](ai/mental_models): Take System stats and creates models for AI. AWS Lambda code.
+ - [Tensorflow AI](ai/tensorflow): Uses Mental Models to generate train AI for various tasks.
+ - [Console](console/js): ReactJS Frontend App used on STRUM Cloud
+ - Server: This component is not yet open sourced.
+
 ### Primary Dependencies
 
-One of the primary dependencies of STRUM is the [ProcFS Library](https://github.com/acksin/procfs) we use.
+One of the primary dependencies of Autotune is the [ProcFS Library](https://github.com/acksin/procfs) we use.
 Any code that needs to read from ProcFS should go there and we will
 primarily code there for things. In the future we will have similar
 dependencies for SysFS. In addition to that we use the Go libraries
@@ -47,7 +59,7 @@ provided by the Cloud providers.
 
 ## Goals
 
-STRUM is based around the work of
+Autotune is based around the work of
 [John Boyd](https://en.wikipedia.org/wiki/John_Boyd_(military_strategist))
 with his Observe Orient Decide and Act paradigm, also called
 the OODA loop.
@@ -60,25 +72,25 @@ of the operating system. Furthermore, as we go up the stack with
 Containers and maintain clusters instead of individual machines we
 need to know how one service affects the others.
 
-![OODA](https://assets.acksin.com/images/strum_ooda.png)
+![OODA](https://assets.acksin.com/images/autotune_ooda.png)
 
 ### Situational awareness
 
-STRUM's goal is to be situationally aware about the Containers, the
+Autotune's goal is to be situationally aware about the Containers, the
 System, the Cluster and the Cloud so that it can help you make
 effective decisions. By keeping track of this various information
-about the cluster we can help point you to potential issues. STRUM is
-not trying to replace application level instrumentation such as
+about the cluster we can help point you to potential issues. Autotune is
+not trying to replace application level inautotuneentation such as
 Graphite and Datadog. Our tools are at the system level.
 
-### [Mental Models](https://github.com/acksin/strum/wiki/Mental-Models)
+### [Mental Models](https://github.com/acksin/autotune/wiki/Mental-Models)
 
 Mental Models are how a system and a cluster should behave such that
 there is minimal operational issues. Mental Models are kernel changes
 as well as various feature columns that are used to train the Machine
 Learning Algorithms.
 
-This data is contained in the [ai/mental_models](https://github.com/acksin/strum/tree/master/ai/mental_models) directory.
+This data is contained in the [ai/mental_models](ai/mental_models) directory.
 
 ## License
 

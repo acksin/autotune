@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,13 +6,16 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-var AcksinStrumNav = React.createClass({
+var AcksinAutotuneNav = React.createClass({
   getInitialState: function() {
     switch(document.location.pathname) {
-      case "/console/autotune/":
-        console.log("autotune");
+      case "/console/autotune/tuning/":
         return {
           item: "autotune"
+        }
+      case "/console/autotune/diagnostics/":
+        return {
+          item: "raw"
         }
     }
 
@@ -27,10 +30,10 @@ var AcksinStrumNav = React.createClass({
     return (
       <ul className="nav nav-tabs">
         <li role="presentation" className={this.isActive("autotune")}>
-          <a href={"/console/autotune/#/" + this.props.statsId}>Autotune</a>
+          <a href={"/console/autotune/tuning/#/" + this.props.statsId}>Tuning</a>
         </li>
         <li role="presentation" className={this.isActive("raw")}>
-          <a href={"/console/strum/#/" + this.props.statsId}>RAW</a>
+          <a href={"/console/autotune/diagnostics/#/" + this.props.statsId}>Diagnostics</a>
         </li>
       </ul>
     );

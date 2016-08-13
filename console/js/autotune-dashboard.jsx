@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/* Acksin Autotune - Linux Diagnostics
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-var AcksinStrumDashboard  = React.createClass({
+var AcksinAutotuneDashboard  = React.createClass({
   getInitialState: function() {
     return {
       configCode: "",
@@ -21,7 +21,7 @@ var AcksinStrumDashboard  = React.createClass({
       var config;
       config =  "{\n";
       config += '    "APIKey": "' + result.APIKey + '",\n';
-      config += '    "URL": "https://api.acksin.com/v1/strum/stats"\n';
+      config += '    "URL": "https://api.acksin.com/v1/autotune/stats"\n';
       config += '}\n';
 
       this.setState({
@@ -30,16 +30,16 @@ var AcksinStrumDashboard  = React.createClass({
       });
     }.bind(this));
 
-    $.get(BridgeAPI + "/v1/strum/nodes", function(result) {
+    $.get(BridgeAPI + "/v1/autotune/nodes", function(result) {
       var c = [];
 
       for(var i = 0; i < result.length; i++) {
         c.push(
           <tr key={result[i].ID}>
-            <td><a href={"/console/autotune/#/" + result[i].ID}>{result[i].InstanceID}</a></td>
+            <td><a href={"/console/autotune/tuning/#/" + result[i].ID}>{result[i].InstanceID}</a></td>
             <td>{result[i].InstanceType}</td>
             <td>{moment(result[i].CreatedAt).calendar()}</td>
-            <td><a href={"/console/strum/#/" + result[i].ID}><i className="fa fa-cogs" aria-hidden="true"></i></a></td>
+            <td><a href={"/console/autotune/#/" + result[i].ID}><i className="fa fa-cogs" aria-hidden="true"></i></a></td>
           </tr>
         );
       }
@@ -68,8 +68,8 @@ var AcksinStrumDashboard  = React.createClass({
 
         <div>
           <p>
-            <a href="/strum">Download STRUM</a> create the following config which is already
-            populated with your API key. We recommend storing it <code>/etc/config/strum.json</code>
+            <a href="/autotune">Download Autotune</a> create the following config which is already
+            populated with your API key. We recommend storing it <code>/etc/config/autotune.json</code>
           </p>
 
           <pre>
@@ -81,7 +81,7 @@ var AcksinStrumDashboard  = React.createClass({
           Run the following:
           <pre>
             <code>
-              sudo strum agent /etc/config/strum.json
+              sudo autotune agent /etc/config/autotune.json
             </code>
           </pre>
         </div>

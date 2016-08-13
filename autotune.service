@@ -1,11 +1,11 @@
 [Unit]
-Description=Acksin STRUM Agent
+Description=Acksin Autotune Agent
 Requires=network-online.target
 After=network-online.target
 
 [Service]
 Restart=on-failure
-ExecStart=/usr/local/sbin/strum agent /etc/strum.json
+ExecStart=/usr/local/sbin/autotune agent /etc/autotune.json
 ExecReload=/bin/kill -HUP $MAINPID
 KillSignal=SIGINT
 

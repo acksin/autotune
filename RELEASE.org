@@ -3,11 +3,12 @@
 How to do a release:
 
  - =make release=
- - Update [[https://github.com/acksin/strum/releases][Github Release]] Notes
+ - Update [[https://github.com/acksin/autotune/releases][Github Release]] Notes
  - Release [[https://www.acksin.com][acksin.com]]
 
-* 0.5.x
+* 0.6.0
 
+ - Rename STRUM to Autotune
  - Deploy both dev and prod stages for mental models.
  - Console now should human readable times using moment.js
 
