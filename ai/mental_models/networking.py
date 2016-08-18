@@ -206,5 +206,4 @@ class Networking(mental_model.MentalModel):
 
         return {
             "/sys/module/nf_conntrack/parameters/hashsize": self.vars["nfConntrackMax"] / 4
-
-}
+        }

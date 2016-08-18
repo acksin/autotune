@@ -6,7 +6,7 @@
  * file, You can obtain one at http://mozilla.org/MPL/2.0/.
  */
 
-var AcksinAutotuneRAW  = React.createClass({
+var AcksinAutotuneDiagnostics  = React.createClass({
   getInitialState: function() {
     return {
       content: [],

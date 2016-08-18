@@ -17,6 +17,27 @@ var AcksinAutotuneDashboard  = React.createClass({
     }
   },
   componentDidMount: function() {
+    $.get(BridgeAPI + "/v1/autotune/nodes", function(result) {
+      var c = [];
+
+      if(result != null) {
+        for(var i = 0; i < result.length; i++) {
+          c.push(
+            <tr key={result[i].ID}>
+              <td><i className="fa fa-amazon" aria-hidden="true"></i> <a href={"/console/autotune/tuning/#/" + result[i].ID}>{result[i].InstanceID}</a></td>
+              <td>{result[i].InstanceType}</td>
+              <td>{moment(result[i].CreatedAt).calendar()}</td>
+              <td><a href={"/console/autotune/#/" + result[i].ID}><i className="fa fa-cogs" aria-hidden="true"></i></a></td>
+            </tr>
+          );
+        }
+
+        this.setState({
+          content: c
+        });
+      }
+    }.bind(this));
+
     $.get(BridgeAPI + "/v1/user", function(result) {
       var config;
       config =  "{\n";
@@ -27,25 +48,6 @@ var AcksinAutotuneDashboard  = React.createClass({
       this.setState({
         configCode: config,
         userInfo: result
-      });
-    }.bind(this));
-
-    $.get(BridgeAPI + "/v1/autotune/nodes", function(result) {
-      var c = [];
-
-      for(var i = 0; i < result.length; i++) {
-        c.push(
-          <tr key={result[i].ID}>
-            <td><a href={"/console/autotune/tuning/#/" + result[i].ID}>{result[i].InstanceID}</a></td>
-            <td>{result[i].InstanceType}</td>
-            <td>{moment(result[i].CreatedAt).calendar()}</td>
-            <td><a href={"/console/autotune/#/" + result[i].ID}><i className="fa fa-cogs" aria-hidden="true"></i></a></td>
-          </tr>
-        );
-      }
-
-      this.setState({
-        content: c
       });
     }.bind(this));
   },

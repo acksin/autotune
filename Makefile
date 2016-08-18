@@ -11,7 +11,7 @@ build: deps test
 deps:
 	go get github.com/aktau/github-release
 	go get -u github.com/golang/lint/golint
-	go get ./...
+	go get -u ./...
 	-cd ai && $(MAKE) deps
 
 dev-deps:
