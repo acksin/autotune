@@ -5,6 +5,7 @@
     "license": "MPL",
     "buildCommand": "make lambda-build",
     "branch": "master",
+    "configTemplate": "ai/mental_models/config.tmpl.json",
     "aws": {
         "policyFiles": null
     }
