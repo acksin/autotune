@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/*
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -9,8 +9,8 @@
 package stats
 
 import (
-	"github.com/acksin/strum/stats/io"
-	"github.com/acksin/strum/stats/memory"
+	"github.com/acksin/acksin/stats/io"
+	"github.com/acksin/acksin/stats/memory"
 )
 
 // Process is information about a Linux process

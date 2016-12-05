@@ -1,4 +1,4 @@
-/* Acksin STRUM - Linux Diagnostics
+/*
  * Copyright (C) 2016 Acksin <hey@acksin.com>
  *
  * This Source Code Form is subject to the terms of the Mozilla Public
@@ -16,42 +16,23 @@ import (
 	"net/http"
 	"time"
 
-	"errors"
-	"github.com/acksin/strum/shared"
-	"github.com/acksin/strum/stats"
+	"github.com/acksin/acksin/stats"
+	"github.com/acksin/autotune/shared"
 )
 
-// Agent runs a STRUM Cloud agent.
+// Agent runs a Autotune Cloud agent.
 type agent struct {
-	Config shared.Config
+	Config *shared.Config
 
 	configFile string
 }
 
 func (a *agent) Synopsis() string {
-	return "Run a STRUM Cloud agent."
+	return "Run a Autotune Cloud agent."
 }
 
 func (a *agent) Help() string {
-	return "Run a STRUM Cloud agent."
-}
-
-func (a *agent) parseConfig() error {
-	b, err := ioutil.ReadFile(a.configFile)
-	if err != nil {
-		return err
-	}
-
-	err = json.Unmarshal(b, &a.Config)
-	if err != nil {
-		return err
-	}
-
-	if a.Config.APIKey == "" {
-		return errors.New("Set the `APIKey`. For STRUM Cloud this can be found at https://www.acksin.com/console/credentials")
-	}
-
-	return nil
+	return "Run a Autotune Cloud agent."
 }
 
 func (a *agent) post() error {
@@ -64,6 +45,9 @@ func (a *agent) post() error {
 
 	req, err := http.NewRequest("POST", a.Config.URL, bytes.NewBuffer(jsonStr))
 	req.Header.Set("X-Acksin-API-Key", a.Config.APIKey)
+	if a.Config.MachineName != "" {
+		req.Header.Set("X-Acksin-MachineName", a.Config.MachineName)
+	}
 	req.Header.Set("Content-Type", "application/json")
 	client := &http.Client{}
 	resp, err := client.Do(req)
@@ -88,7 +72,9 @@ func (a *agent) post() error {
 }
 
 func (a *agent) Run(args []string) int {
-	log.Println("Starting STRUM Agent...")
+	var err error
+
+	log.Println("Starting Autotune Agent...")
 
 	if len(args) == 0 {
 		log.Println("need to pass a config file")
@@ -96,8 +82,8 @@ func (a *agent) Run(args []string) int {
 	}
 
 	a.configFile = args[0]
-
-	if err := a.parseConfig(); err != nil {
+	a.Config, err = shared.ParseConfig(a.configFile)
+	if err != nil {
 		log.Println(err)
 		return -1
 	}
@@ -109,7 +95,7 @@ func (a *agent) Run(args []string) int {
 
 		select {
 		case <-time.After(1 * time.Hour):
-			log.Println("Ping")
+			log.Println("Sending Stats.")
 		}
 	}
 }

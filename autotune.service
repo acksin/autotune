@@ -1,0 +1,13 @@
+[Unit]
+Description=Acksin Autotune Agent
+Requires=network-online.target
+After=network-online.target
+
+[Service]
+Restart=on-failure
+ExecStart=/usr/local/sbin/autotune agent /etc/autotune.json
+ExecReload=/bin/kill -HUP $MAINPID
+KillSignal=SIGINT
+
+[Install]
+WantedBy=multi-user.target

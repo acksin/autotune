@@ -1,6 +1,6 @@
 {
-    "name": "strum",
-    "description": "Convert STRUM stats to actionable stats",
+    "name": "autotune",
+    "description": "Convert Autotune stats to actionable stats",
     "tags": ["linux", "diagnostics"],
     "license": "MPL",
     "buildCommand": "make lambda-build",

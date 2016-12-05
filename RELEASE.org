@@ -1,7 +1,35 @@
 #+TITLE: Release Notes
 
-* 0.5.x
+How to do a release:
 
+ - =make release=
+ - Update [[https://github.com/acksin/acksin/releases][Github Release]] Notes
+ - Release [[https://www.acksin.com][acksin.com]]
+
+* 0.6.x
+
+ - [#177] Mental Models now show the documentation of the ProcFS changes.
+ - [#184] Including the Server components of running the application.
+
+* 0.6.2
+
+ - Renamed Autotune to the name of the company Acksin to avoid
+   confusion with the musical software named Auto-Tune.
+
+* 0.6.1
+
+ - Support for MachineName instead of just relying on AWS InstanceIDs.
+
+* 0.6.0
+
+ - Rename STRUM to Autotune
+ - Deploy both dev and prod stages for mental models.
+ - Console now should human readable times using moment.js
+
+* 0.5.0
+
+ - systemd Unit File for deploying as a daemon.
+ - Config file to configure the agent.
  - New CLI to allow collecting agent.
  - Tuning recommendations on the Console.
 
